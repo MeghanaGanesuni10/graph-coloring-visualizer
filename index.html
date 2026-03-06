@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Coloring Visualizer</title>
+    <link rel="stylesheet" href="style.css?v=4">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+    <!-- Phosphor Icons for modern minimalist icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Left Control Panel -->
+        <aside class="control-panel">
+            <div class="panel-header">
+                <h1>Graph Colorizer</h1>
+                <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                    <i class="ph ph-moon"></i>
+                </button>
+            </div>
+
+            <div class="panel-section">
+                <h3>Interaction Mode</h3>
+                <div class="btn-group mode-group">
+                    <button id="mode-node" class="mode-btn active" title="Add Nodes"><i class="ph ph-plus-circle"></i>
+                        Add Node</button>
+                    <button id="mode-edge" class="mode-btn" title="Add Edges"><i class="ph ph-line-segment"></i> Add
+                        Edge</button>
+                    <button id="mode-delete" class="mode-btn delete-mode" title="Delete Elements"><i
+                            class="ph ph-trash"></i> Delete</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3>Graph Templates</h3>
+                <div class="btn-grid">
+                    <button id="gen-cycle" class="btn secondary">Cycle</button>
+                    <button id="gen-complete" class="btn secondary">Complete</button>
+                    <button id="gen-grid" class="btn secondary">Grid</button>
+                    <button id="gen-random" class="btn secondary">Random</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3>Graph Tools</h3>
+                <div class="btn-group">
+                    <button id="btn-clear" class="btn danger"><i class="ph ph-eraser"></i> Clear Canvas</button>
+                    <div class="import-export">
+                        <button id="btn-export" class="btn outline" title="Export to JSON"><i class="ph ph-export"></i>
+                            Export</button>
+                        <label for="import-json" class="btn outline" title="Import JSON"><i
+                                class="ph ph-download-simple"></i> Import</label>
+                        <input type="file" id="import-json" accept=".json" style="display: none;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section highlight-section">
+                <h3>Coloring Algorithm</h3>
+                <div class="form-group">
+                    <label for="algo-select">Select Algorithm</label>
+                    <select id="algo-select" class="input-modern">
+                        <option value="greedy">Greedy Coloring</option>
+                        <option value="dsatur">DSATUR Algorithm</option>
+                        <option value="backtracking">Backtracking Coloring</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="colors-input">Max Colors (for Backtracking)</label>
+                    <input type="number" id="colors-input" class="input-modern" min="1" value="4">
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-chromatic" class="btn secondary-highlight"><i class="ph ph-magnifying-glass"></i>
+                        Find Chromatic Number</button>
+                    <button id="btn-run" class="btn primary"><i class="ph ph-play"></i> Run Coloring</button>
+
+                    <div class="toggle-container">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="step-by-step-toggle">
+                            <span class="slider"></span>
+                        </label>
+                        <span>Step-by-Step Mode</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3>Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-nodes">0</span>
+                        <span class="stat-label">Nodes</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-edges">0</span>
+                        <span class="stat-label">Edges</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-colors">-</span>
+                        <span class="stat-label">Colors Used</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section" id="legend-section" style="display: none;">
+                <h3>Colors Used</h3>
+                <div id="color-legend" class="color-legend"></div>
+            </div>
+
+            <div class="panel-section log-section">
+                <h3>Execution Log</h3>
+                <div id="log-panel" class="log-panel">
+                    Ready.
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Canvas Area -->
+        <main class="canvas-area">
+            <div id="cy"></div>
+        </main>
+    </div>
+
+    <script src="algorithms.js?v=4"></script>
+    <script src="app.js?v=4"></script>
+    <script src="ui.js?v=4"></script>
+</body>
+
+</html>
